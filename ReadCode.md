@@ -1,6 +1,6 @@
 # NeRF-Pytorch Code Reading
 
-## This repository is forked from [[yenchenlin/nerf-pytorch](https://github.com/yenchenlin/nerf-pytorch)] and aims to record the code-reading.
+This repository is forked from [[yenchenlin/nerf-pytorch](https://github.com/yenchenlin/nerf-pytorch)] and aims to record the code-reading.
 
 ## Overview
 
@@ -49,6 +49,7 @@ The `run_nerf.py` mainly contains a `train()` function, which is the main traini
   - `update the global iteration step`.
   - `continue the training loop until the end.`
 
+##  Functions and operations in Training loop
 The forward pass of the model is complex. There are many details in those functions like `get_rays()` and `render()`. Thus, here, I read this part of code and record some comments.
 - **get_rays()**: Data preparation, there are two mode to get training rays, the first one is get rays by sampling from different images, the second one is getting rays from one image, and the image is randomly selected. 
   - `get_rays()` function is defined in the `run_nerf_helper.py` file. 
@@ -67,6 +68,7 @@ The forward pass of the model is complex. There are many details in those functi
       - `if N_importance > 0`, then perform importance sampling, and also the `network_query_fn()` and `raw2outputs()` forward pass by using the importance sampling points.
       - return a dictionary with `{"rgb_map": rgb_map, "disp_map": disp_map, "acc_map": acc_map}`
 
+## Functions and operations to forward networks
 The `network_query_fn()` and `raw2outputs()` functions denote the mainly forward pass of the whole model. Specifically,
 - `network_query_fn()` is a lambda function defined by the `run_network()` function.
 - The input of this `run_network()` is
@@ -107,6 +109,7 @@ The `network_query_fn()` and `raw2outputs()` functions denote the mainly forward
   - back to the `train()` function
 
 
+## Summary
 The relationship between code execution and functions can be represented by the following hierarchy.
 
 ```shell
